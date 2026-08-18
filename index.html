@@ -1,3 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elaina X - Made by Darnyx</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',system-ui,sans-serif; }
+    body { min-height:100vh; background:linear-gradient(145deg,#2b0e3f,#1b0728); display:flex; align-items:center; justify-content:center; padding:20px; }
+    .container { max-width:1000px; width:100%; background:rgba(255,255,255,0.07); backdrop-filter:blur(12px); border-radius:42px; padding:30px 30px 40px; box-shadow:0 25px 50px -8px rgba(0,0,0,0.8),0 0 0 1px rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.05); }
+    .header { display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:28px; padding-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.06); }
+    .brand h1 { font-size:28px; font-weight:700; background:linear-gradient(135deg,#d4a0ff,#a855f7); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .brand .sub { font-size:15px; color:#b89bcd; }
+    .watermark { font-size:14px; color:#8b6ba8; background:rgba(255,255,255,0.04); padding:6px 16px; border-radius:40px; border:1px solid rgba(255,255,255,0.05); }
+    .main-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:8px; }
+    @media (max-width:720px){ .main-grid { grid-template-columns:1fr; } }
+    .editor-box { background:rgba(0,0,0,0.45); border-radius:28px; padding:18px; border:1px solid rgba(255,255,255,0.04); }
+    .editor-box .label { display:flex; justify-content:space-between; color:#cbb2dd; font-size:14px; margin-bottom:12px; }
+    textarea { width:100%; height:280px; background:rgba(0,0,0,0.5); border:none; border-radius:18px; padding:16px; color:#f0e6ff; font-size:14px; font-family:'Fira Code',monospace; resize:vertical; outline:none; border:1px solid rgba(255,255,255,0.02); }
+    textarea:focus { border-color:rgba(168,85,247,0.3); }
+    .action-row { display:flex; gap:14px; margin-top:20px; flex-wrap:wrap; }
+    .btn { background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); padding:12px 28px; border-radius:60px; font-weight:600; color:#e6d9f0; cursor:pointer; }
+    .btn-primary { background:linear-gradient(135deg,#7c3aed,#a855f7); color:#fff; border:none; }
+    .btn-primary:hover { transform:scale(1.02); }
+    .copy-feedback { font-size:13px; color:#a78bba; margin-left:12px; }
+    .footer-note { margin-top:24px; text-align:center; color:#6b4d7e; font-size:13px; border-top:1px solid rgba(255,255,255,0.02); padding-top:22px; }
+    .alert-banner { background:rgba(168,85,247,0.07); border:1px solid rgba(168,85,247,0.08); border-radius:40px; padding:10px 24px; margin-bottom:18px; color:#b59ace; text-align:center; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div><span class="brand"><h1>Elaina X</h1></span> <span class="sub">— Made by Darnyx</span></div>
+    <div class="watermark">⚡ v1.00.00</div>
+  </div>
+  <div class="alert-banner"><strong>🔮 Lua Obfuscator</strong> — Mã hoá code Roblox Lua siêu ảo diệu</div>
+  <div class="main-grid">
+    <div class="editor-box">
+      <div class="label"><span>📄 Source (Lua)</span><span class="badge">nhập code</span></div>
+      <textarea id="inputCode" placeholder="-- Dán code Lua của bạn vào đây …">print('Hello Elaina X!')</textarea>
+    </div>
+    <div class="editor-box">
+      <div class="label"><span>🔒 Mã hoá</span><span class="badge">kết quả</span></div>
+      <textarea id="outputCode" placeholder="Code đã được obfuscate …" readonly></textarea>
+    </div>
+  </div>
+  <div class="action-row">
+    <button class="btn btn-primary" id="obfuscateBtn">✨ Mã hoá</button>
+    <button class="btn" id="copyBtn">📋 Sao chép</button>
+    <button class="btn" id="clearBtn">🗑️ Xoá</button>
+    <span class="copy-feedback" id="copyFeedback"></span>
+  </div>
+  <div class="footer-note"><i>🚀 Khi bị crack sẽ hiện: "mày định lấy source mà dễ à🤣"</i></div>
+</div>
+
 <script>
   (function() {
     const input = document.getElementById('inputCode');
@@ -10,33 +65,28 @@
     function obfuscateLuaLevelWibu(code) {
       if (!code || code.trim() === '') return '-- Rỗng tuếch';
       
-      // Chuyển code thành mảng Byte UTF-8
       let utf8Encode = new TextEncoder();
       let bytes = utf8Encode.encode(code);
 
-      // Thuật toán xào nấu số liệu (x3 + 17)
       let nums = [];
       for(let i = 0; i < bytes.length; i++) {
         nums.push((bytes[i] * 3) + 17);
       }
 
-      // Tạo chuỗi số khổng lồ
       let byteString = nums.join(',');
 
-      // Code Lua đầu ra: Giấu nhẹm mọi thứ, chỉ có một cục table toàn số.
-      // Cài sẵn bẫy: Nếu file bị sửa đổi sai lệch hoặc bot cố tình chạy ép, nó sẽ quăng trap.
       let finalCode = `-- Elaina X - Made by Darnyx
-(function(a,b,c,d,e,f)
+(function(a,b,c,d,e)
   pcall(function()
     local t={${byteString}}
     local s={}
     for i=1,#t do s[i]=b((t[i]-17)/3) end
-    local x,y=c(a(s))
+    local x=c(a(s))
     if type(x)=="function" then
       local ok,err=pcall(x)
-      if not ok then print(e) end
+      if not ok then d(e) end
     else
-      print(e)
+      d(e)
     end
   end)
 end)(table.concat, string.char, loadstring, print, "mày định lấy source mà dễ à🤣")`;
@@ -65,3 +115,5 @@ end)(table.concat, string.char, loadstring, print, "mày định lấy source m�
     window.addEventListener('load', ()=>setTimeout(handleObfuscate, 300));
   })();
 </script>
+</body>
+</html>

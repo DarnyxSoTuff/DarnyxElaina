@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elaina X - Made by Darnyx</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',system-ui,sans-serif; }
+    body { min-height:100vh; background:linear-gradient(145deg,#2b0e3f,#1b0728); display:flex; align-items:center; justify-content:center; padding:20px; }
+    .container { max-width:1000px; width:100%; background:rgba(255,255,255,0.07); backdrop-filter:blur(12px); border-radius:42px; padding:30px 30px 40px; box-shadow:0 25px 50px -8px rgba(0,0,0,0.8),0 0 0 1px rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.05); }
+    .header { display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:28px; padding-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.06); }
+    .brand { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
+    .brand h1 { font-size:28px; font-weight:700; letter-spacing:-0.3px; background:linear-gradient(135deg,#d4a0ff,#a855f7); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .brand .sub { font-size:15px; font-weight:400; color:#b89bcd; }
+    .watermark { font-size:14px; color:#8b6ba8; background:rgba(255,255,255,0.04); padding:6px 16px; border-radius:40px; border:1px solid rgba(255,255,255,0.05); }
+    .watermark span { color:#c29eff; font-weight:600; }
+    .main-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:8px; }
+    @media (max-width:720px){ .main-grid { grid-template-columns:1fr; gap:18px; } }
+    .editor-box { background:rgba(0,0,0,0.45); border-radius:28px; padding:18px 20px 20px; border:1px solid rgba(255,255,255,0.04); box-shadow:inset 0 8px 12px rgba(0,0,0,0.4); }
+    .editor-box .label { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; color:#cbb2dd; font-size:14px; font-weight:500; }
+    .editor-box .label .badge { background:rgba(168,85,247,0.2); padding:3px 14px; border-radius:30px; font-size:12px; color:#c084fc; border:1px solid rgba(168,85,247,0.15); }
+    textarea { width:100%; height:280px; background:rgba(0,0,0,0.5); border:none; border-radius:18px; padding:16px 18px; color:#f0e6ff; font-size:14px; line-height:1.6; font-family:'Fira Code','Consolas',monospace; resize:vertical; outline:none; box-shadow:inset 0 4px 8px rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.02); transition:all .2s; }
+    textarea:focus { border-color:rgba(168,85,247,0.3); box-shadow:0 0 0 3px rgba(168,85,247,0.1); }
+    textarea::placeholder { color:#6d537d; font-style:italic; }
+    .action-row { display:flex; flex-wrap:wrap; gap:14px; margin-top:20px; align-items:center; justify-content:space-between; }
+    .btn-group { display:flex; gap:12px; flex-wrap:wrap; }
+    .btn { background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); padding:12px 28px; border-radius:60px; font-weight:600; font-size:15px; color:#e6d9f0; cursor:pointer; transition:all .25s; backdrop-filter:blur(4px); display:inline-flex; align-items:center; gap:8px; }
+    .btn-primary { background:linear-gradient(135deg,#7c3aed,#a855f7); color:#fff; border:none; box-shadow:0 6px 18px rgba(168,85,247,0.25); }
+    .btn-primary:hover { transform:scale(1.02); box-shadow:0 10px 28px rgba(168,85,247,0.35); }
+    .btn-primary:active { transform:scale(0.97); }
+    .btn-outline { background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); }
+    .btn-outline:hover { background:rgba(255,255,255,0.06); border-color:rgba(168,85,247,0.25); }
+    .copy-feedback { font-size:13px; color:#a78bba; margin-left:6px; }
+    .footer-note { margin-top:24px; text-align:center; color:#6b4d7e; font-size:13px; border-top:1px solid rgba(255,255,255,0.02); padding-top:22px; }
+    .footer-note i { font-style:normal; background:rgba(168,85,247,0.12); padding:2px 12px; border-radius:30px; color:#b89bcd; }
+    .alert-banner { background:rgba(168,85,247,0.07); border:1px solid rgba(168,85,247,0.08); border-radius:40px; padding:10px 24px; margin-bottom:18px; color:#b59ace; font-size:14px; text-align:center; backdrop-filter:blur(4px); }
+    .alert-banner strong { color:#d4a0ff; }
+  </style>
+</head>
+<body>
+<div class="container" id="app">
+  <div class="header">
+    <div class="brand">
+      <h1>Elaina X</h1>
+      <span class="sub">— Made by Darnyx</span>
+    </div>
+    <div class="watermark"><span>⚡</span> v1.00.00</div>
+  </div>
+  <div class="alert-banner"><strong>🔮 Obfuscator</strong> — Mã hoá code giữ nguyên chức năng · chống lấy source</div>
+  <div class="main-grid">
+    <div class="editor-box">
+      <div class="label"><span>📄 Source (Lua / JS)</span><span class="badge">nhập code</span></div>
+      <textarea id="inputCode" placeholder="-- Dán code bạn muốn mã hoá vào đây …">print('Hello Elaina X!')</textarea>
+    </div>
+    <div class="editor-box">
+      <div class="label"><span>🔒 Mã hoá</span><span class="badge">kết quả</span></div>
+      <textarea id="outputCode" placeholder="Code đã được obfuscate …" readonly></textarea>
+    </div>
+  </div>
+  <div class="action-row">
+    <div class="btn-group">
+      <button class="btn btn-primary" id="obfuscateBtn">✨ Mã hoá</button>
+      <button class="btn btn-outline" id="copyBtn">📋 Sao chép</button>
+      <button class="btn btn-outline" id="clearBtn">🗑️ Xoá</button>
+    </div>
+    <span class="copy-feedback" id="copyFeedback"></span>
+  </div>
+  <div class="footer-note"><i>🚀 Bảo vệ code của bạn · Khi bị crack sẽ hiện thông điệp riêng</i></div>
+</div>
+
+<!-- ⚡ Tất cả tài nguyên đều dùng HTTPS ⚡ -->
+<script src="https://cdn.jsdelivr.net/npm/javascript-obfuscator@4.1.0/dist/index.browser.min.js"></script>
+<script>
+  (function() {
+    // Fallback nếu CDN không tải được
+    if (typeof JavaScriptObfuscator === 'undefined') {
+      document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/javascript-obfuscator/4.1.0/index.browser.min.js"><\/script>');
+    }
+  })();
+</script>
+<script>
+  (function() {
+    const input = document.getElementById('inputCode');
+    const output = document.getElementById('outputCode');
+    const obfBtn = document.getElementById('obfuscateBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const feedback = document.getElementById('copyFeedback');
+
+    function obfuscateCode(code) {
+      if (!code || code.trim() === '') return '-- Không có code để mã hoá';
+      try {
+        const obfuscated = JavaScriptObfuscator.obfuscate(code, {
+          compact: true,
+          controlFlowFlattening: true,
+          controlFlowFlatteningThreshold: 0.75,
+          numbersToExpressions: true,
+          simplify: true,
+          stringArrayShuffle: true,
+          splitStrings: true,
+          splitStringsChunkLength: 8,
+          transformObjectKeys: true,
+          unicodeEscapeSequence: false,
+          selfDefending: true,
+          debugProtection: true,
+          debugProtectionInterval: 500,
+          renameGlobals: false,
+        }).getObfuscatedCode();
+        return `
+          // Elaina X - Made by Darnyx (HTTPS)
+          (function(){
+            ${obfuscated}
+          })();
+          // "mình định lấy scource mà dễ à🤣"
+        `;
+      } catch (e) {
+        return `-- Lỗi: ${e.message}`;
+      }
+    }
+
+    function handleObfuscate() {
+      output.value = obfuscateCode(input.value);
+    }
+    function handleCopy() {
+      if (!output.value.trim()) { feedback.textContent='⚠️ Rỗng'; setTimeout(()=>feedback.textContent='',2000); return; }
+      navigator.clipboard.writeText(output.value).then(()=>{ feedback.textContent='✅ Đã sao chép!'; setTimeout(()=>feedback.textContent='',2500); })
+        .catch(()=>{ output.select(); document.execCommand('copy'); feedback.textContent='✅ Đã sao chép (cũ)'; setTimeout(()=>feedback.textContent='',2500); });
+    }
+    function handleClear(){ input.value=''; output.value=''; feedback.textContent=''; }
+
+    obfBtn.addEventListener('click', handleObfuscate);
+    copyBtn.addEventListener('click', handleCopy);
+    clearBtn.addEventListener('click', handleClear);
+    window.addEventListener('load', ()=>setTimeout(handleObfuscate, 300));
+
+    // Bẫy chế giễu
+    document.addEventListener('copy', function(e) {
+      if (e.target === output || output.contains(e.target)) {
+        feedback.textContent = '🤣 "m định lấy scource mà dễ à"';
+        setTimeout(()=>feedback.textContent='', 3000);
+      }
+    });
+
+    let devOpen = false;
+    const trap = new Image();
+    Object.defineProperty(trap, 'id', { get: function() {
+      devOpen = true;
+      if (devOpen) setTimeout(()=> alert('🔒 m định lấy scource mà dễ à🤣'), 100);
+      return 'dev-trap';
+    }});
+    console.log('%c', trap);
+    console.log('%cElaina X - Made by Darnyx (HTTPS)', 'font-size:18px; color:#a855f7;');
+    console.log('%c🔐 Code đã được bảo vệ, đừng mất công crack!', 'font-size:14px; color:#b89bcd;');
+  })();
+</script>
+</body>
+</html>

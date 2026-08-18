@@ -33,7 +33,7 @@
     <div><span class="brand"><h1>Elaina X</h1></span> <span class="sub">— Made by Darnyx</span></div>
     <div class="watermark">⚡ v1.00.00</div>
   </div>
-  <div class="alert-banner"><strong>🔮 Lua Obfuscator</strong> — Mã hoá code Lua giữ nguyên chức năng</div>
+  <div class="alert-banner"><strong>🔮 Lua Obfuscator</strong> — Mã hoá code Roblox Lua siêu ảo diệu</div>
   <div class="main-grid">
     <div class="editor-box">
       <div class="label"><span>📄 Source (Lua)</span><span class="badge">nhập code</span></div>
@@ -62,46 +62,49 @@
     const clearBtn = document.getElementById('clearBtn');
     const feedback = document.getElementById('copyFeedback');
 
-    // Hàm obfuscate Lua đơn giản (dùng string.char và loadstring)
-    function obfuscateLua(code) {
-      if (!code || code.trim() === '') return '-- Không có code';
+    // Hàm Obfuscate Lua cấp độ "Hack Não"
+    function obfuscateLuaLevelWibu(code) {
+      if (!code || code.trim() === '') return '-- Rỗng tuếch';
       
-      // Loại bỏ comment và xuống dòng thừa
-      let cleaned = code
-        .replace(/--[^\n]*/g, '')  // xoá comment
-        .replace(/\s+/g, ' ')      // rút gọn khoảng trắng
-        .trim();
-      
-      if (cleaned === '') return '-- Code rỗng sau khi xoá comment';
-      
-      // Tách từng dòng lệnh (dùng ; hoặc xuống dòng)
-      let lines = cleaned.split(/[;\n]/).filter(s => s.trim() !== '');
-      if (lines.length === 0) return '-- Không có lệnh hợp lệ';
-      
-      // Mã hoá từng dòng thành chuỗi
-      let encoded = lines.map(line => {
-        let chars = [];
-        for (let i = 0; i < line.length; i++) {
-          chars.push(line.charCodeAt(i));
-        }
-        return `loadstring(string.char(${chars.join(',')}))()`; 
-      }).join(' ');
+      // Xoá comment và format bớt
+      let cleanedCode = code.replace(/--.*$/gm, '').replace(/\r\n/g, '\n').trim();
+      if (cleanedCode === '') return '-- Không có gì để mã hóa';
 
-      // Gói trong loadstring
-      let result = `
-        -- Obfuscated by Elaina X
-        local function run()
-          ${encoded}
-        end
-        pcall(run)
-        -- "m định lấy source à🤣"
-      `;
-      return result;
+      // Tạo chuỗi byte rác và mảng byte thật
+      let bytes = [];
+      let shift = Math.floor(Math.random() * 5) + 1; // Key dịch chuyển nhẹ
+      
+      for(let i = 0; i < cleanedCode.length; i++) {
+        let charCode = cleanedCode.charCodeAt(i);
+        // Mã hóa bằng phép toán đơn giản: (Mã ASCII + Shift) x 2
+        let obfuscatedByte = (charCode + shift) * 2;
+        bytes.push(obfuscatedByte);
+      }
+
+      let byteString = bytes.join(',');
+      let varName1 = 'E' + Math.random().toString(36).substring(2, 8).toUpperCase();
+      let varName2 = 'L' + Math.random().toString(36).substring(2, 8).toUpperCase();
+
+      // Mẫu code giải mã chạy thẳng trên Roblox (Dùng loadstring nếu executor hỗ trợ, hoặc hàm thực thi tương đương)
+      let finalCode = `-- Obfuscated by Elaina X - Made by Darnyx
+local ${varName1} = {${byteString}}
+local ${varName2} = ""
+for _, v in pairs(${varName1}) do
+    ${varName2} = ${varName2} .. string.char((v / 2) - ${shift})
+end
+local f, err = loadstring(${varName2})
+if f then
+    pcall(f)
+else
+    print("m định lấy source à🤣")
+end
+`;
+      return finalCode;
     }
 
     function handleObfuscate() {
       let src = input.value;
-      let result = obfuscateLua(src);
+      let result = obfuscateLuaLevelWibu(src);
       output.value = result;
     }
 
@@ -125,7 +128,6 @@
     clearBtn.addEventListener('click', handleClear);
     window.addEventListener('load', ()=>setTimeout(handleObfuscate, 300));
 
-    // Bẫy copy
     document.addEventListener('copy', function(e) {
       if (e.target === output || output.contains(e.target)) {
         feedback.textContent = '🤣 "m định lấy source à"';
@@ -133,7 +135,6 @@
       }
     });
 
-    // Bẫy devtool
     let devOpen = false;
     const trap = new Image();
     Object.defineProperty(trap, 'id', { get: function() {

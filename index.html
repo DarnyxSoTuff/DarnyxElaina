@@ -68,11 +68,9 @@
   <div class="footer-note"><i>🚀 Bảo vệ code của bạn · Khi bị crack sẽ hiện thông điệp riêng</i></div>
 </div>
 
-<!-- ⚡ Tất cả tài nguyên đều dùng HTTPS ⚡ -->
 <script src="https://cdn.jsdelivr.net/npm/javascript-obfuscator@4.1.0/dist/index.browser.min.js"></script>
 <script>
   (function() {
-    // Fallback nếu CDN không tải được
     if (typeof JavaScriptObfuscator === 'undefined') {
       document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/javascript-obfuscator/4.1.0/index.browser.min.js"><\/script>');
     }
@@ -111,7 +109,7 @@
           (function(){
             ${obfuscated}
           })();
-          // "mình định lấy scource mà dễ à🤣"
+          // "m định lấy source à🤣"
         `;
       } catch (e) {
         return `-- Lỗi: ${e.message}`;
@@ -133,19 +131,20 @@
     clearBtn.addEventListener('click', handleClear);
     window.addEventListener('load', ()=>setTimeout(handleObfuscate, 300));
 
-    // Bẫy chế giễu
+    // THÔNG ĐIỆP KHI COPY
     document.addEventListener('copy', function(e) {
       if (e.target === output || output.contains(e.target)) {
-        feedback.textContent = '🤣 "m định lấy scource mà dễ à"';
+        feedback.textContent = '🤣 "m định lấy source à"';
         setTimeout(()=>feedback.textContent='', 3000);
       }
     });
 
+    // THÔNG ĐIỆP KHI PHÁT HIỆN DEVTOOLS
     let devOpen = false;
     const trap = new Image();
     Object.defineProperty(trap, 'id', { get: function() {
       devOpen = true;
-      if (devOpen) setTimeout(()=> alert('🔒 m định lấy scource mà dễ à🤣'), 100);
+      if (devOpen) setTimeout(()=> alert('🔒 m định lấy source à🤣'), 100);
       return 'dev-trap';
     }});
     console.log('%c', trap);
